@@ -1,6 +1,7 @@
 <?php require '../app/views/layout/header.php'; ?>
 
 
+<div class="container">
 <h2>Grupos</h2>
 
 <a href="?controller=grupo&action=criar">Novo Grupo</a>
@@ -22,3 +23,6 @@
 </tr>
 <?php endforeach; ?>
 </table>
+
+</div>
+<?php require '../app/views/layout/footer.php'; ?>

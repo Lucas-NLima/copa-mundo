@@ -1,6 +1,7 @@
 <?php require '../app/views/layout/header.php'; ?>
 
 
+<div class="container">
 <h2>Jogos</h2>
 
 <a href="?controller=jogo&action=criar">Novo Jogo</a>
@@ -69,3 +70,5 @@
 <?php endforeach; ?>
 
 </table>
+
+</div>

@@ -1,6 +1,7 @@
 <?php require '../app/views/layout/header.php'; ?>
 
-
+    
+<div class="container">
 <h2>Usuários</h2>
 
 <a href="?controller=usuario&action=criar">Novo Usuário</a>
@@ -28,3 +29,5 @@
 </tr>
 <?php endforeach; ?>
 </table>
+
+</div>

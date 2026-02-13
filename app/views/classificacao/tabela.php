@@ -26,3 +26,4 @@
 </tr>
 <?php endforeach; ?>
 </table>
+<?php require '../app/views/layout/footer.php'; ?>

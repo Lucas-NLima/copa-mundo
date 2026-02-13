@@ -1,5 +1,7 @@
+
 <?php require '../app/views/layout/header.php'; ?>
 
+<div class="container">
 <h2>Seleções</h2>
 
 <a href="?controller=selecao&action=criar">Nova Seleção</a>
@@ -27,3 +29,5 @@
 </tr>
 <?php endforeach; ?>
 </table>
+</div>  
+
