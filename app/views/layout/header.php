@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="assets/css/style.css">
+
 <hr>
 <a href="?controller=selecao&action=listar">Seleções</a> |
 <a href="?controller=jogo&action=listar">Jogos</a> |
