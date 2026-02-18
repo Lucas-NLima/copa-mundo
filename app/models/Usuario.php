@@ -10,10 +10,15 @@ class Usuario {
     }
 
     public function listar() {
-        $query = "SELECT id, nome, email FROM {$this->table}";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+     $sql = "SELECT u.*, s.nome AS selecao_nome
+     FROM usuarios u
+     LEFT JOIN selecao s ON u.selecao_id = s.id
+     ORDER BY u.nome ASC";
+
+     $stmt = $this->conn->prepare($sql);
+     $stmt->execute();
+     
+     return $stmt ->fetchALL(PDO::FETCH_ASSOC);
     }
 
     public function cadastrar($nome, $email, $senha) {

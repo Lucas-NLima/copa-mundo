@@ -5,6 +5,8 @@
 <a href="?controller=jogo&action=listar">Jogos</a> |
 <a href="?controller=grupo&action=listar">Grupos</a> |
 <a href="?controller=usuario&action=listar">Usuários</a>|
-<a href="?controller=classificacao&action=listar">Classificação</a>
+<a href="?controller=classificacao&action=tabela">
+    Classificação
+</a>
 
-<hr>
+<hr>    

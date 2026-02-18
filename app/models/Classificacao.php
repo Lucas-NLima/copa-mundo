@@ -74,14 +74,14 @@ class Classificacao {
         FROM selecoes s
 
         LEFT JOIN jogos j 
-        ON s.id = j.selecao_casa_id 
-        OR s.id = j.selecao_fora_id
+            ON (s.id = j.selecao_casa_id 
+            OR s.id = j.selecao_fora_id)
 
         WHERE s.grupo_id = ?
 
         GROUP BY s.id
 
-        ORDER BY pontos DESC, (gols_pro - gols_contra) DESC, gols_pro DESC
+        ORDER BY pontos DESC
         ";
 
         $stmt = $this->conn->prepare($query);
