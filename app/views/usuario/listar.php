@@ -20,7 +20,7 @@
     <td><?= $u['nome'] ?></td>
     <td><?= $u['idade'] ?></td>
     <td><?= $u['cargo'] ?></td>
-    <td><?= $u['selecao'] ?></td>
+    <td><?= $u['selecao'] ?? '-' ?></td>
     <td>
         <a href="?controller=usuario&action=excluir&id=<?= $u['id'] ?>">
             Excluir
