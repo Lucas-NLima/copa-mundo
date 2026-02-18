@@ -12,6 +12,7 @@ if (!file_exists($controllerPath)) {
     die("Controller não encontrado.");
 }
 
+
 require_once $controllerPath;
 
 $conn = Database::conectar();
@@ -22,3 +23,4 @@ if (!method_exists($obj, $action)) {
 }
 
 $obj->$action();
+

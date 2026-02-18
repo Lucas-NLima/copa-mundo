@@ -9,14 +9,16 @@ class Selecao {
     }
 
     // 🔹 LISTAR TODAS
-    public function listar()
-{
-    $sql = "SELECT * FROM selecoes ORDER BY nome ASC";
-  $stmt = $this->conn->prepare($sql);
 
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  public function listar() {
+    $sql = "SELECT s.*, g.nome AS grupo_nome
+            FROM selecoes s
+            LEFT JOIN grupos g ON s.grupo_id = g.id";
+
+    return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
 
 
     // 🔹 LISTAR POR GRUPO

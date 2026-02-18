@@ -5,18 +5,30 @@
 <form method="POST">
 
     <label>Nome</label>
-    <input type="text" name="nome" 
-           value="<?= $usuario['nome'] ?>" required>
+    <input type="text" name="nome"
+           value="<?= htmlspecialchars($usuario['nome']) ?>" required>
 
-    <label>Email</label>
-    <input type="email" name="email" 
-           value="<?= $usuario['email'] ?>" required>
+    <label>Idade</label>
+    <input type="number" name="idade"
+           value="<?= $usuario['idade'] ?>" required>
 
-    <label>Senha (deixe em branco para não alterar)</label>
-    <input type="password" name="senha">
+    <label>Cargo</label>
+    <input type="text" name="cargo"
+           value="<?= htmlspecialchars($usuario['cargo']) ?>" required>
+
+    <label>Seleção</label>
+    <select name="selecao_id">
+        <option value="">Selecione</option>
+        <?php foreach($selecoes as $s): ?>
+            <option value="<?= $s['id'] ?>"
+                <?= $usuario['selecao_id'] == $s['id'] ? 'selected' : '' ?>>
+                <?= $s['nome'] ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
 
     <button type="submit" class="btn">Atualizar</button>
 
 </form>
 
-<?php require '../app/views/layout/footer.php'; ?>
+

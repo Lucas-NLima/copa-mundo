@@ -3,56 +3,56 @@
 class Usuario {
 
     private $conn;
-    private $table = "usuarios";
 
-    public function __construct($db) {
-        $this->conn = $db;
+    public function __construct($conn) {
+        $this->conn = $conn;
     }
 
+    // 🔹 LISTAR
     public function listar() {
-        $query = "SELECT id, nome, email FROM {$this->table}";
-        $stmt = $this->conn->prepare($query);
+        $sql = "SELECT u.*, s.nome AS selecao_nome
+                FROM usuarios u
+                LEFT JOIN selecoes s ON u.selecao_id = s.id
+                ORDER BY u.nome ASC";
+
+        $stmt = $this->conn->prepare($sql);
         $stmt->execute();
+
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function cadastrar($nome, $email, $senha) {
-        $query = "INSERT INTO {$this->table}
-                  (nome, email, senha)
-                  VALUES (?, ?, ?)";
-
-        $stmt = $this->conn->prepare($query);
-        return $stmt->execute([$nome, $email, $senha]);
-    }
-
+    // 🔹 BUSCAR POR ID
     public function buscarPorId($id) {
-        $query = "SELECT * FROM {$this->table} WHERE id = ?";
-        $stmt = $this->conn->prepare($query);
+        $sql = "SELECT * FROM usuarios WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
         $stmt->execute([$id]);
+
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function atualizarComSenha($id, $nome, $email, $senha) {
-        $query = "UPDATE {$this->table}
-                  SET nome=?, email=?, senha=?
-                  WHERE id=?";
+    // 🔹 CADASTRAR
+    public function cadastrar($nome, $idade, $cargo, $selecao_id) {
+        $sql = "INSERT INTO usuarios (nome, idade, cargo, selecao_id)
+                VALUES (?, ?, ?, ?)";
 
-        $stmt = $this->conn->prepare($query);
-        return $stmt->execute([$nome, $email, $senha, $id]);
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([$nome, $idade, $cargo, $selecao_id]);
     }
 
-    public function atualizarSemSenha($id, $nome, $email) {
-        $query = "UPDATE {$this->table}
-                  SET nome=?, email=?
-                  WHERE id=?";
+    // 🔹 ATUALIZAR
+    public function atualizar($id, $nome, $idade, $cargo, $selecao_id) {
+        $sql = "UPDATE usuarios
+                SET nome = ?, idade = ?, cargo = ?, selecao_id = ?
+                WHERE id = ?";
 
-        $stmt = $this->conn->prepare($query);
-        return $stmt->execute([$nome, $email, $id]);
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([$nome, $idade, $cargo, $selecao_id, $id]);
     }
 
+    // 🔹 EXCLUIR
     public function excluir($id) {
-        $query = "DELETE FROM {$this->table} WHERE id = ?";
-        $stmt = $this->conn->prepare($query);
+        $sql = "DELETE FROM usuarios WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
         return $stmt->execute([$id]);
     }
 }

@@ -1,29 +1,36 @@
 <?php
 require_once '../app/models/Usuario.php';
+require_once '../app/models/Selecao.php';
 
 class UsuarioController {
 
     private $usuario;
+    private $conn;
 
     public function __construct($conn) {
+        $this->conn = $conn;
         $this->usuario = new Usuario($conn);
     }
 
+    // 🔹 LISTAR
     public function listar() {
         $usuarios = $this->usuario->listar();
         require '../app/views/usuario/listar.php';
     }
 
+    // 🔹 CRIAR
     public function criar() {
 
-        if ($_POST) {
+        $selecaoModel = new Selecao($this->conn);
+        $selecoes = $selecaoModel->listar();
 
-            $senhaHash = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $this->usuario->cadastrar(
                 $_POST['nome'],
-                $_POST['email'],
-                $senhaHash
+                $_POST['idade'],
+                $_POST['cargo'],
+                $_POST['selecao_id']
             );
 
             header("Location: ?controller=usuario&action=listar");
@@ -33,32 +40,24 @@ class UsuarioController {
         require '../app/views/usuario/criar.php';
     }
 
+    // 🔹 EDITAR
     public function editar() {
 
         $id = $_GET['id'];
         $usuario = $this->usuario->buscarPorId($id);
 
-        if ($_POST) {
+        $selecaoModel = new Selecao($this->conn);
+        $selecoes = $selecaoModel->listar();
 
-            if (!empty($_POST['senha'])) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-                $senhaHash = password_hash($_POST['senha'], PASSWORD_DEFAULT);
-
-                $this->usuario->atualizarComSenha(
-                    $id,
-                    $_POST['nome'],
-                    $_POST['email'],
-                    $senhaHash
-                );
-
-            } else {
-
-                $this->usuario->atualizarSemSenha(
-                    $id,
-                    $_POST['nome'],
-                    $_POST['email']
-                );
-            }
+            $this->usuario->atualizar(
+                $id,
+                $_POST['nome'],
+                $_POST['idade'],
+                $_POST['cargo'],
+                $_POST['selecao_id']
+            );
 
             header("Location: ?controller=usuario&action=listar");
             exit;
@@ -67,6 +66,7 @@ class UsuarioController {
         require '../app/views/usuario/editar.php';
     }
 
+    // 🔹 EXCLUIR
     public function excluir() {
         $this->usuario->excluir($_GET['id']);
         header("Location: ?controller=usuario&action=listar");
