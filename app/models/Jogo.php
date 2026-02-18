@@ -44,14 +44,31 @@ public function listar() {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function atualizar($id, $confronto, $data, $estadio, $fase, $placar) {
-        $query = "UPDATE {$this->table}
-                  SET confronto=?, data=?, estadio=?, fase=?, placar=?
-                  WHERE id=?";
+   public function atualizar($id, $casa, $fora, $data, $estadio, $fase, $golsCasa, $golsFora) {
 
-        $stmt = $this->conn->prepare($query);
-        return $stmt->execute([$confronto, $data, $estadio, $fase, $placar, $id]);
-    }
+    $sql = "UPDATE jogos SET
+                selecao_casa_id = ?,
+                selecao_fora_id = ?,
+                data_jogo = ?,
+                estadio = ?,
+                fase = ?,
+                gols_casa = ?,
+                gols_fora = ?
+            WHERE id = ?";
+
+    $stmt = $this->conn->prepare($sql);
+    return $stmt->execute([
+        $casa,
+        $fora,
+        $data,
+        $estadio,
+        $fase,
+        $golsCasa,
+        $golsFora,
+        $id
+    ]);
+}
+
 
     public function excluir($id) {
         $query = "DELETE FROM {$this->table} WHERE id = ?";
