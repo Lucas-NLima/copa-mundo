@@ -1,6 +1,5 @@
 <?php require '../app/views/layout/header.php'; ?>
 
-
 <div class="container">
 <h2>Jogos</h2>
 
@@ -27,16 +26,18 @@
         <strong><?= $j['visitante_nome'] ?></strong>
     </td>
 
-    <td><?= date("d/m/Y H:i", strtotime($j['data_hora'])) ?></td>
+    <td>
+        <?= date("d/m/Y", strtotime($j['data_jogo'])) ?>
+    </td>
 
     <td><?= $j['estadio'] ?></td>
 
     <td><?= $j['fase'] ?></td>
 
     <td>
-        <?php if($j['gols_mandante'] !== null): ?>
+        <?php if($j['gols_casa'] !== null): ?>
             <strong>
-                <?= $j['gols_mandante'] ?> x <?= $j['gols_visitante'] ?>
+                <?= $j['gols_casa'] ?> x <?= $j['gols_fora'] ?>
             </strong>
         <?php else: ?>
             -
@@ -45,11 +46,11 @@
 
     <td>
 
-        <?php if($j['gols_mandante'] === null): ?>
+        <?php if($j['gols_casa'] === null): ?>
             <form method="POST" action="?controller=jogo&action=resultado" style="margin-bottom:5px;">
                 <input type="hidden" name="id" value="<?= $j['id'] ?>">
-                <input type="number" name="gols_mandante" placeholder="Mandante" required style="width:60px;">
-                <input type="number" name="gols_visitante" placeholder="Visitante" required style="width:60px;">
+                <input type="number" name="gols_casa" placeholder="Casa" required style="width:60px;">
+                <input type="number" name="gols_fora" placeholder="Fora" required style="width:60px;">
                 <button type="submit">Registrar</button>
             </form>
         <?php else: ?>
@@ -72,3 +73,4 @@
 </table>
 
 </div>
+

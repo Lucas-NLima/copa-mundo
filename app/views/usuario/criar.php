@@ -1,21 +1,20 @@
+<?php require '../app/views/layout/header.php'; ?>
 
-
-<h2>Cadastrar Usuário</h2>
+<h2>Novo Usuário</h2>
 
 <form method="POST">
-    Nome: <input type="text" name="nome" required><br><br>
-    Idade: <input type="number" name="idade" required><br><br>
-    Cargo: <input type="text" name="cargo" required><br><br>
 
-    Seleção:
-    <select name="selecao_id" required>
-        <?php foreach($selecoes as $s): ?>
-            <option value="<?= $s['id'] ?>">
-                <?= $s['nome'] ?>
-            </option>
-        <?php endforeach; ?>
-    </select><br><br>
+    <label>Nome</label>
+    <input type="text" name="nome" required>
 
-    <button type="submit">Salvar</button>
+    <label>Email</label>
+    <input type="email" name="email" required>
+
+    <label>Senha</label>
+    <input type="password" name="senha" required>
+
+    <button type="submit" class="btn">Salvar</button>
+
 </form>
 
+<?php require '../app/views/layout/footer.php'; ?>

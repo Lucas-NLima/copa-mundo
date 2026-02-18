@@ -28,10 +28,11 @@ class SelecaoController {
         if ($_POST) {
 
             $this->selecao->cadastrar(
-                $_POST['nome'],
-                $_POST['continente'],
-                $_POST['grupo_id']
-            );
+    $_POST['nome'],
+    $_POST['grupo_id'],
+    $_POST['continente']
+);
+
 
             header("Location: ?controller=selecao&action=listar");
             exit;
@@ -66,11 +67,12 @@ class SelecaoController {
     if ($_POST) {
 
         $this->selecao->atualizar(
-            $id,
-            $_POST['nome'],
-            $_POST['continente'],
-            $_POST['grupo_id']
-        );
+    $id,
+    $_POST['nome'],
+    $_POST['grupo_id'],
+    $_POST['continente']
+);
+
 
         header("Location: ?controller=selecao&action=listar");
         exit;

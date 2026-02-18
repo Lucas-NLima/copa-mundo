@@ -1,15 +1,12 @@
 <?php
 require_once '../app/models/Usuario.php';
-require_once '../app/models/Selecao.php';
 
 class UsuarioController {
 
     private $usuario;
-    private $selecao;
 
     public function __construct($conn) {
         $this->usuario = new Usuario($conn);
-        $this->selecao = new Selecao($conn);
     }
 
     public function listar() {
@@ -18,23 +15,61 @@ class UsuarioController {
     }
 
     public function criar() {
-        $selecoes = $this->selecao->listar();
 
         if ($_POST) {
+
+            $senhaHash = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+
             $this->usuario->cadastrar(
                 $_POST['nome'],
-                $_POST['idade'],
-                $_POST['cargo'],
-                $_POST['selecao_id']
+                $_POST['email'],
+                $senhaHash
             );
+
             header("Location: ?controller=usuario&action=listar");
+            exit;
         }
 
         require '../app/views/usuario/criar.php';
     }
 
+    public function editar() {
+
+        $id = $_GET['id'];
+        $usuario = $this->usuario->buscarPorId($id);
+
+        if ($_POST) {
+
+            if (!empty($_POST['senha'])) {
+
+                $senhaHash = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+
+                $this->usuario->atualizarComSenha(
+                    $id,
+                    $_POST['nome'],
+                    $_POST['email'],
+                    $senhaHash
+                );
+
+            } else {
+
+                $this->usuario->atualizarSemSenha(
+                    $id,
+                    $_POST['nome'],
+                    $_POST['email']
+                );
+            }
+
+            header("Location: ?controller=usuario&action=listar");
+            exit;
+        }
+
+        require '../app/views/usuario/editar.php';
+    }
+
     public function excluir() {
         $this->usuario->excluir($_GET['id']);
         header("Location: ?controller=usuario&action=listar");
+        exit;
     }
 }

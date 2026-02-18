@@ -7,6 +7,23 @@ class Grupo {
         $this->conn = $conn;
     }
 
+    // 🔹 BUSCAR POR ID
+public function buscarPorId($id) {
+    $sql = "SELECT * FROM grupos WHERE id = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([$id]);
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+// 🔹 ATUALIZAR
+public function atualizar($id, $nome) {
+    $sql = "UPDATE grupos SET nome = ? WHERE id = ?";
+    $stmt = $this->conn->prepare($sql);
+    return $stmt->execute([$nome, $id]);
+}
+
+
     public function listar() {
         return $this->conn
             ->query("SELECT * FROM grupos")
