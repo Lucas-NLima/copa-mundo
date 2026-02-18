@@ -1,4 +1,4 @@
-/* ===== RESET PROFISSIONAL ===== */
+
 * {
     margin: 0;
     padding: 0;
@@ -14,7 +14,6 @@ body {
     position: relative;
 }
 
-/* ===== ESTÁDIO ANIMADO ===== */
 
 body::before {
     content: "";
@@ -31,7 +30,7 @@ body::before {
     z-index: -2;
 }
 
-/* Holofotes */
+
 body::after {
     content: "";
     position: fixed;
@@ -48,7 +47,7 @@ body::after {
     z-index: -1;
 }
 
-/* ===== TÍTULOS ===== */
+
 
 h2 {
     margin-bottom: 25px;
@@ -61,7 +60,7 @@ h2 {
     animation: shine 4s linear infinite;
 }
 
-/* ===== LINKS ===== */
+
 
 a {
     text-decoration: none;
@@ -75,7 +74,7 @@ a:hover {
     text-shadow: 0 0 10px gold;
 }
 
-/* ===== BOTÕES ===== */
+
 
 button {
     background: linear-gradient(45deg, gold, orange);
@@ -92,7 +91,7 @@ button:hover {
     box-shadow: 0 0 20px gold;
 }
 
-/* ===== TABELA MODERNA ===== */
+
 
 table {
     width: 100%;
@@ -127,7 +126,7 @@ tr:hover {
     transform: scale(1.01);
 }
 
-/* ===== PLACAR PULSANDO ===== */
+
 
 .score {
     font-size: 22px;
@@ -136,7 +135,7 @@ tr:hover {
     animation: pulseScore 2s infinite;
 }
 
-/* ===== INPUTS ===== */
+
 
 input, select {
     padding: 8px;
@@ -147,7 +146,6 @@ input, select {
     color: #fff;
 }
 
-/* ===== LINHA DO MENU ===== */
 
 hr {
     margin: 20px 0;
@@ -155,7 +153,7 @@ hr {
     box-shadow: 0 0 10px gold;
 }
 
-/* ===== ANIMAÇÕES ===== */
+
 
 @keyframes rotateLights {
     from { transform: translateX(-50%) rotate(0deg); }
@@ -176,4 +174,12 @@ hr {
 @keyframes shine {
     0% { background-position: -200px; }
     100% { background-position: 200px; }
+}
+
+.titulo{
+    text-align: center;
+}
+
+.nav-header{
+    justify-content: center;
 }
