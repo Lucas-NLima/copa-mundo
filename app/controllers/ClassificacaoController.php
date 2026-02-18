@@ -1,23 +1,19 @@
 <?php
+require_once '../app/models/Classificacao.php';
+
 class ClassificacaoController {
 
-    private $conn;
+    private $classificacao;
 
     public function __construct($conn) {
-        $this->conn = $conn;
+        $this->classificacao = new Classificacao($conn);
     }
 
-    public function listar() {
+    public function tabela() {
 
-        $sql = "SELECT s.*, g.nome as grupo,
-                (gols_marcados - gols_sofridos) as saldo
-                FROM selecoes s
-                JOIN grupos g ON s.grupo_id = g.id
-                ORDER BY grupo ASC, pontos DESC, saldo DESC, gols_marcados DESC";
+        $grupo_id = $_GET['grupo'] ?? 1;
 
-        $classificacao = $this->conn
-                        ->query($sql)
-                        ->fetchAll(PDO::FETCH_ASSOC);
+        $tabela = $this->classificacao->gerarTabela($grupo_id);
 
         require '../app/views/classificacao/tabela.php';
     }
